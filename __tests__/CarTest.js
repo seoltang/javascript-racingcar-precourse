@@ -2,9 +2,13 @@
 const Car = require('../src/model/Car');
 
 describe('Car 클래스 테스트', () => {
-  const names = ['abcdef', 'helloworld', '!@#$%', '', ' '];
+  const names = { valid: ['a', 'abcde'], invalid: ['abcdef', 'helloworld', '!@#$%', '', ' '] };
 
-  test.each(names)('.validate(%s)', (name) => {
+  test.each(names.valid)('.validate(%s)', (name) => {
+    expect(() => new Car(name)).not.toThrow('[ERROR]');
+  });
+
+  test.each(names.invalid)('.validate(%s)', (name) => {
     expect(() => new Car(name)).toThrow('[ERROR]');
   });
 
